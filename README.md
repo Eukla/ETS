@@ -53,7 +53,7 @@ For downloading the data run the script `download_data.sh` found in the script f
 | ECEC | training_lengths=20, a=0.8 |
 | MLSTM | LSTM cells = 8, tested_lengths = [0.4,0.5,0.6] %  |
 
-##Menu Guide
+## Menu Guide
 
 After running the <em> Virtual Enviroment </em> commands stated above, by running `ets` a menu with all programming options appears.
 A running command is constructed as follows:
@@ -64,7 +64,7 @@ If you want to see the algorithm's menu run:
 
 `ets <program commands> <algorithm> --help`
 
-###Quick commands rundown used for the experiments
+### Quick commands rundown used for the experiments
 
 `-i <file path>` : Only one file is given for cross validation with a given number of folds.
 
