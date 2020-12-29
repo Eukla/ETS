@@ -90,7 +90,12 @@ If you want to see the algorithm's menu run:
 ### Demo full commands
 
 `ects` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t ects -u 0.0`
+
 `edsc` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t --cplus edsccplus`
+
 `ecec` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t --java ecec`
+
 `teaser` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t --java teaser -s 20`
+
 `mlstm` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t -g normal mlstm`
+
