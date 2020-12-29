@@ -388,7 +388,7 @@ def cv(config: Config, classifier: EarlyClassifier) -> None:
                 predictions = res[0]
                 click.echo('Total training time := {}'.format(timedelta(seconds=float(res[1]))),
                            file=config.output)
-                click.echo('Total test time := {}'.format(timedelta(seconds=float(res[2]))),
+                click.echo('Total testing time := {}'.format(timedelta(seconds=float(res[2]))),
                            file=config.output)
             else:
                 # Train the MLSTM
@@ -397,7 +397,7 @@ def cv(config: Config, classifier: EarlyClassifier) -> None:
                                                  fold_test_labels)
                 predictions = result[0]
                 click.echo('Total training time := {}'.format(timedelta(seconds=result[1])), file=config.output)
-                click.echo('Total training time := {}'.format(timedelta(seconds=result[2])), file=config.output)
+                click.echo('Total testing time := {}'.format(timedelta(seconds=result[2])), file=config.output)
                 click.echo('Best earl:={}'.format(result[3]), file=config.output)
                 # predictions = classifier.predict(fold_test_data)
                 # click.echo('Total testing time := {}'.format(timedelta(seconds=time.time() - start)),
@@ -417,7 +417,7 @@ def cv(config: Config, classifier: EarlyClassifier) -> None:
                     res = classifier.predict(pd.DataFrame())
                     click.echo('Total training time := {}'.format(timedelta(seconds=float(res[1]))),
                                file=config.output)
-                    click.echo('Total test time := {}'.format(timedelta(seconds=float(res[2]))),
+                    click.echo('Total testing time := {}'.format(timedelta(seconds=float(res[2]))),
                                file=config.output)
                     votes.append(res[0])
                 elif config.cplus is True:
@@ -429,7 +429,7 @@ def cv(config: Config, classifier: EarlyClassifier) -> None:
                     votes.append(res[0])
                     click.echo('Total training time := {}'.format(timedelta(seconds=float(res[1]))),
                                file=config.output)
-                    click.echo('Total test time := {}'.format(timedelta(seconds=float(res[2]))),
+                    click.echo('Total testing time := {}'.format(timedelta(seconds=float(res[2]))),
                                file=config.output)
                 else:
                     # Train the classifier
@@ -539,7 +539,7 @@ def train_and_test(config: Config, classifier: EarlyClassifier) -> None:
             predictions = res[0]
             click.echo('Total training time := {}'.format(timedelta(seconds=float(res[1]))),
                        file=config.output)
-            click.echo('Total test time := {}'.format(timedelta(seconds=float(res[2]))),
+            click.echo('Total testing time := {}'.format(timedelta(seconds=float(res[2]))),
                        file=config.output)
         elif config.cplus is True:
             a = config.train_labels.value_counts()
@@ -549,7 +549,7 @@ def train_and_test(config: Config, classifier: EarlyClassifier) -> None:
             predictions = res[0]
             click.echo('Total training time := {}'.format(timedelta(seconds=float(res[1]))),
                        file=config.output)
-            click.echo('Total test time := {}'.format(timedelta(seconds=float(res[2]))),
+            click.echo('Total testing time := {}'.format(timedelta(seconds=float(res[2]))),
                        file=config.output)
         elif config.strategy == 'normal':
             start = time.time()
@@ -562,7 +562,7 @@ def train_and_test(config: Config, classifier: EarlyClassifier) -> None:
                                              config.test_labels)
             predictions = result[0]
             click.echo('Total training time := {}'.format(timedelta(seconds=result[1])), file=config.output)
-            click.echo('Total training time := {}'.format(timedelta(seconds=result[2])), file=config.output)
+            click.echo('Total testing time := {}'.format(timedelta(seconds=result[2])), file=config.output)
             click.echo('Best earl:={}'.format(result[3]), file=config.output)
         else:
             # Train the classifier
@@ -589,7 +589,7 @@ def train_and_test(config: Config, classifier: EarlyClassifier) -> None:
                 votes.append(res[0])
                 click.echo('Total training time := {}'.format(timedelta(seconds=float(res[1]))),
                         file=config.output)
-                click.echo('Total test time := {}'.format(timedelta(seconds=float(res[2]))),
+                click.echo('Total testing time := {}'.format(timedelta(seconds=float(res[2]))),
                         file=config.output)
             elif config.cplus is True:
                 a = config.train_labels.value_counts()
@@ -599,7 +599,7 @@ def train_and_test(config: Config, classifier: EarlyClassifier) -> None:
                 votes.append(res[0])
                 click.echo('Total training time := {}'.format(timedelta(seconds=float(res[1]))),
                         file=config.output)
-                click.echo('Total test time := {}'.format(timedelta(seconds=float(res[2]))),
+                click.echo('Total testing time := {}'.format(timedelta(seconds=float(res[2]))),
                         file=config.output)
             elif config.strategy == 'normal':
                 start = time.time()
