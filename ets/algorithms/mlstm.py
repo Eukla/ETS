@@ -1,5 +1,5 @@
 from typing import Sequence, Tuple
-
+import os
 import keras
 import pandas as pd
 from ets.algorithms.utils import topy
@@ -26,6 +26,10 @@ class MLSTM():
         h_max= 0
         best_earl = 0
         timesteps = test_d[0].shape[1]
+        if not os.path.exists("./ets/algorithms/MLSTM/data"):
+            os.mkdir("./ets/algorithms/MLSTM/data")
+        if not os.path.exists("./ets/algorithms/MLSTM/weights"):
+            os.mkdir("./ets/algorithms/MLSTM/weights")
         for earliness in earl:
             sizes = int(len(self.timestamps)*earliness)
             new_d = []
