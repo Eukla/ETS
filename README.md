@@ -2,10 +2,22 @@
 
 An Early Classification of Time-Series library.
 
+Aim of this work is to gather algorithms that conduct early time-series classification, in a user-friendly format, for researchers to use for their work.
+
+Currently five algorithms are included in this directory. The execution is aided and simplified by a cli, based on the **click** python library. Gui_run or terminal_run can be used to evaluate each algorithm on the UCR dataset. We also provide two additional datasets, from a maritime and biological use case. The output of each algorithm for each dataset consists of the earliness, accuracy, f1-score(if wanted) and computation time for both training and testing.
+
+## About
+This work was made for the use of CER group, of Informatics and Telecomunications Institute of NCSR "Demokritos".
 
 ## License
 
 This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under certain conditions; See the [GNU General Public License v3 for more details](http://www.gnu.org/licenses/gpl-3.0.en.html).
+
+## Requirements
+
+Python3
+
+JVM >= 1.8
 
 ## Using a Virtual Environment
 1. Install the `virtualenv` package:
@@ -47,11 +59,11 @@ For downloading the data run the script `download_data.sh` found in the script f
 
 | Algorithm | Parameters |
 |---|---|
-| ECTS | support = 0 |
-| EDSC | CHE, k=3, min_length=5, max_length=len(time_series)/2 |
-| TEASER | S=20 (for the UCR), S=10 (for the biological and maritime) |
-| ECEC | training_lengths=20, a=0.8 |
-| MLSTM | LSTM cells = 8, tested_lengths = [0.4,0.5,0.6] %  |
+| ECTS [\[paper\]](https://www.researchgate.net/publication/251403730_Early_classification_on_time_series) | support = 0 |
+| EDSC [\[paper\]](https://www.researchgate.net/publication/220907007_Extracting_Interpretable_Features_for_Early_Classification_on_Time_Series) | CHE, k=3, min_length=5, max_length=len(time_series)/2 |
+| TEASER [\[paper\]](https://link.springer.com/article/10.1007/s10618-020-00690-z) [\[code\]](https://github.com/patrickzib/SFA) | S=20 (for the UCR), S=10 (for the biological and maritime) |
+| ECEC [\[paper\]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8765556) [\[code\]](https://github.com/junweilvhfut/ECEC)| training_lengths=20, a=0.8 |
+| MLSTM [\[paper\]](https://www.researchgate.net/publication/322517887_Multivariate_LSTM-FCNs_for_time_series_classification) [\[code\]](https://github.com/titu1994/MLSTM-FCN) | LSTM cells = 8, tested_lengths = [0.4,0.5,0.6] %  |
 
 ## Menu Guide
 
