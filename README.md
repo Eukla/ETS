@@ -2,12 +2,14 @@
 
 An Early Classification of Time-Series library.
 
-Aim of this work is to gather algorithms that conduct early time-series classification, in a user-friendly format, for researchers to use for their work.
+Aim of this work is to study and collect algorithms that conduct early time-series classification, in a user-friendly format, for researchers to use for their work.
 
-Currently five algorithms are included in this directory. The execution is aided and simplified by a cli, based on the **click** python library. Gui_run or terminal_run can be used to evaluate each algorithm on the UCR dataset. We also provide two additional datasets, from a maritime and biological use case. The output of each algorithm for each dataset consists of the earliness, accuracy, f1-score(if wanted) and computation time for both training and testing.
-
-## About
-This work was made for the use of CER group, of Informatics and Telecomunications Institute of NCSR "Demokritos".
+Currently five algorithms are included in this directory. A python cli simplifies the execution of the desired algorithm providing configuration choices such as the names of the input and output files, the number of folds and the class to calulcate the F1-Score. The input files can contain univariate or multivariate time-series.
+For the approaches ECTS, EDSC, TEASER, ECEC since they only support univariate time-series, a voting method is used to provide results in case of multivariate input. 
+ECEC and TEASER are implemented in Java so they are run using jar executables in the Java/ folder.
+EDSC is implemented in C++ and the code located in C_files/ is compiled and executed through python.
+The output of each algorithm for each dataset consists of the earliness, accuracy, f1-score(if wanted) and computation time for both training and testing. We also provide a script which automatically downloads the UCR datasets and datasets from maritime and biological use cases.
+Gui_run or terminal_run are demos, which run the desired algorithm for all the UCR datasets.
 
 ## License
 
@@ -15,15 +17,15 @@ This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you a
 
 ## Requirements
 
-Python3
+Python3 is required to install the libraries stated in the `requirements.txt`.
 
-JVM >= 1.8
+JVM >= 1.8 is required to run the algorithms that are implemented using java.
 
 ## Using a Virtual Environment
 1. Install the `virtualenv` package:
 
 ```bash
-pip install virtualenv
+pip3 install virtualenv
 ```
 
 2. Create a new virtual environment:
@@ -59,11 +61,11 @@ For downloading the data run the script `download_data.sh` found in the script f
 
 | Algorithm | Parameters |
 |---|---|
-| ECTS [\[paper\]](https://www.researchgate.net/publication/251403730_Early_classification_on_time_series) | support = 0 |
-| EDSC [\[paper\]](https://www.researchgate.net/publication/220907007_Extracting_Interpretable_Features_for_Early_Classification_on_Time_Series) | CHE, k=3, min_length=5, max_length=len(time_series)/2 |
+| ECTS [\[paper\]](https://link.springer.com/article/10.1007/s10115-011-0400-x) | support = 0 |
+| EDSC [\[paper\]](https://epubs.siam.org/doi/10.1137/1.9781611972818.22) | CHE, k=3, min_length=5, max_length=len(time_series)/2 |
 | TEASER [\[paper\]](https://link.springer.com/article/10.1007/s10618-020-00690-z) [\[code\]](https://github.com/patrickzib/SFA) | S=20 (for the UCR), S=10 (for the biological and maritime) |
 | ECEC [\[paper\]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8765556) [\[code\]](https://github.com/junweilvhfut/ECEC)| training_lengths=20, a=0.8 |
-| MLSTM [\[paper\]](https://www.researchgate.net/publication/322517887_Multivariate_LSTM-FCNs_for_time_series_classification) [\[code\]](https://github.com/titu1994/MLSTM-FCN) | LSTM cells = 8, tested_lengths = [0.4,0.5,0.6] %  |
+| MLSTM [\[paper\]](https://www.sciencedirect.com/science/article/abs/pii/S0893608019301200?via%3Dihub) [\[code\]](https://github.com/titu1994/MLSTM-FCN) | LSTM cells = 8, tested_lengths = [0.4,0.5,0.6] %  |
 
 ## Menu Guide
 
