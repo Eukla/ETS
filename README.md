@@ -1,14 +1,11 @@
-# Timeline
+# ETSC: Early Time Series Classification
 
-An Early Classification of Time-Series library.
+`ETSC` is a Python Early Classification of Time-Series library for public use.
 
 Aim of this work is to study and collect algorithms that conduct early time-series classification, in a user-friendly format, for researchers to use for their work.
 
-Currently five algorithms are included in this directory. A python cli simplifies the execution of the desired algorithm providing configuration choices such as the names of the input and output files, the number of folds and the class to calulcate the F1-Score. The input files can contain univariate or multivariate time-series.
-For the approaches ECTS, EDSC, TEASER, ECEC since they only support univariate time-series, a voting method is used to provide results in case of multivariate input. 
-ECEC and TEASER are implemented in Java so they are run using jar executables in the Java/ folder.
-EDSC is implemented in C++ and the code located in C_files/ is compiled and executed through python.
-The output of each algorithm for each dataset consists of the earliness, accuracy, f1-score(if wanted) and computation time for both training and testing. We also provide a script which automatically downloads the UCR datasets and datasets from maritime and biological use cases.
+Currently five algorithms are included in this directory. A python cli, simplifies the execution of each algorithm
+The predictions are evalueated through metrics such as earliness, accuracy, f1-score(if wanted) and computation time for both training and testing.
 Gui_run or terminal_run are demos, which run the desired algorithm for all the UCR datasets.
 
 ## License
@@ -21,7 +18,7 @@ Python3 is required to install the libraries stated in the `requirements.txt`.
 
 JVM >= 1.8 is required to run the algorithms that are implemented using java.
 
-## Using a Virtual Environment
+## Installation
 1. Install the `virtualenv` package:
 
 ```bash
@@ -55,8 +52,7 @@ pip install --editable .
 ## Downloading the data
 
 For downloading the data run the script `download_data.sh` found in the script folder. The downloaded data can be found inside folder `data`.
-
-
+Over 100 datasets are available, derived from the [UCR library](https://www.cs.ucr.edu/%7Eeamonn/time_series_data_2018/). Multivariate datasets from the Biological and Maritime field are also provided.
 ## Experimental Setup
 
 | Algorithm | Parameters |
@@ -101,7 +97,7 @@ If you want to see the algorithm's menu run:
 `-c <number>`: The class for which the F1-score will be calculated. If -1 is passed then the F1-score of all classes is calculated (not supported for multivariate time-series yet).
 
 
-### Demo full commands
+### Test Run
 
 `ects` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t ects -u 0.0`
 
@@ -113,3 +109,8 @@ If you want to see the algorithm's menu run:
 
 `mlstm` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t -g normal mlstm`
 
+There are also two demo programs for the UCR Dataset run with:
+
+`python gui_run.py`, where algorithms are selected through a GUI.
+
+`python terminal run_py -a <algorithm>`, where the algorithms are given as command line arguements.
