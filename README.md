@@ -58,7 +58,7 @@ Over 100 datasets are available, derived from the [UCR library](https://www.cs.u
 | Algorithm | Parameters |
 |---|---|
 | ECTS [\[paper\]](https://link.springer.com/article/10.1007/s10115-011-0400-x) | support = 0 |
-| EDSC [\[paper\]](https://epubs.siam.org/doi/10.1137/1.9781611972818.22) | CHE, k=3, min_length=5, max_length=len(time_series)/2 |
+| EDSC [\[paper\]](https://epubs.siam.org/doi/10.1137/1.9781611972818.22) [\[code\]](https://drive.google.com/file/d/0BxY8OirJ0-gdbnBYNnRNbW9xeTQ/view) | CHE k=3, min_length=5, max_length=len(time_series)/2 |
 | TEASER [\[paper\]](https://link.springer.com/article/10.1007/s10618-020-00690-z) [\[code\]](https://github.com/patrickzib/SFA) | S=20 (for the UCR), S=10 (for the biological and maritime) |
 | ECEC [\[paper\]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8765556) [\[code\]](https://github.com/junweilvhfut/ECEC)| training_times=20, length = len(time_series)/20,a=0.8 |
 | MLSTM [\[paper\]](https://www.sciencedirect.com/science/article/abs/pii/S0893608019301200?via%3Dihub) [\[code\]](https://github.com/titu1994/MLSTM-FCN) | LSTM cells = 8, tested_lengths = [0.4,0.5,0.6] %  |
