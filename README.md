@@ -1,6 +1,7 @@
 # ETSC: Early Time Series Classification
 
-`ETSC` is a Python Early Classification of Time-Series library for public use.
+`ETSC` is a Python Early Classification of Time-Series library for public use, from the work **"An Empirical Evaluation of Early Time-Series Classification
+Algorithms"**, **Authors: Evgenios Kladis, Charilaos Akasiadis, Evangelos Michelioudakis, Elias Alevizos, Alexandros Artikis**.
 
 Aim of this work is to study and collect algorithms that conduct early time-series classification, in a user-friendly format, for researchers to use for their work.
 
@@ -114,3 +115,7 @@ There are also two demo programs for the UCR Dataset run with:
 `python gui_run.py`, where algorithms are selected through a GUI.
 
 `python terminal run_py -a <algorithm>`, where the algorithms are given as command line arguements.
+
+### Disclaimer
+
+Any false product and misuse of the used algorithms is on the authors of the paper. Please inform us if you detect any misconduct or misuse of the code/datasets  in this repository.
