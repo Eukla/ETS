@@ -54,7 +54,10 @@ pip install --editable .
 
 For downloading the data run the script `download_data.sh` found in the script folder. The downloaded data can be found inside folder `data`.
 Over 100 datasets are available, derived from the [UCR library](https://www.cs.ucr.edu/%7Eeamonn/time_series_data_2018/). Multivariate datasets from the Biological and Maritime field are also provided.
+
 ## Experimental Setup
+
+Note that only ECTS was implemented by us, using the paper of the algorithm as a guide. The rest of the algorithms derive from sources we provide in the following table. All credit goes to the original creators of the algorithms papers. 
 
 | Algorithm | Parameters |
 |---|---|
@@ -118,4 +121,4 @@ There are also two demo programs for the UCR Dataset run with:
 
 ### Disclaimer
 
-Any false product and misuse of the used algorithms is on the authors of the paper. Please inform us if you detect any misconduct or misuse of the code/datasets  in this repository.
+Any false product and misuse of the used algorithms is on the authors of the paper. Please inform us if you detect any misconduct or misuse of the code/datasets used in this repository.
