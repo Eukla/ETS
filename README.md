@@ -9,6 +9,10 @@ Currently five algorithms are included in this directory. A python cli, simplifi
 The predictions are evalueated through metrics such as earliness, accuracy, f1-score(if wanted) and computation time for both training and testing.
 Gui_run or terminal_run are demos, which run the desired algorithm for all the UCR datasets.
 
+## Acknowledgments
+
+Special thanks to Evangelos Michelioudakis (vagmcs@iit.demokritos.gr) for the contribution to the development of this repository.
+
 ## License
 
 This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under certain conditions; See the [GNU General Public License v3 for more details](http://www.gnu.org/licenses/gpl-3.0.en.html).
