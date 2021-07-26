@@ -1,17 +1,83 @@
 import math
-import pandas as pd
-import numpy as np
-from scipy.spatial import distance
-from typing import Sequence, Tuple, Optional, List
-from typing import Sequence, List, Tuple, Optional, Dict
-from collections import defaultdict
-import click
 import os
+import sys
+from cmath import nan
+from typing import Sequence, Tuple, Optional
+from os import path
+import numpy as np
+import pandas as pd
+from scipy.io.arff import loadarff
+from sklearn import preprocessing
 
-#
-# Performance Measures
-#
 
+def arff_parser(file_name):
+    """
+
+        Program that reads arff files and turns it into dataframes readble for our framework
+
+        :param file_name: Name of the .arff file
+        :param type_file: 0 for train file and 1 for test
+    """
+
+    files = os.listdir("./data/UCR_UEA")
+    for file in files:
+        if ".py" in file:
+            continue
+        if file in file_name:
+            # read the data
+            raw_data = loadarff(file_name)
+            df = pd.DataFrame(raw_data[0])
+            # encode the labels
+            labels = df.iloc[:, -1]
+            encoder = preprocessing.LabelEncoder()
+            new = pd.Series(encoder.fit_transform(labels), name="Class")
+            df.drop(df.columns[[-1]], axis=1, inplace=True)
+            df['Class'] = new
+            new_df = None
+            # prepare the new dataframe where each (number_of_variable) rows will represent a time-series
+            columns = None
+            for index, row in df.iterrows():
+                label = [row[-1]]
+                if len(row) > 2:
+                    attributes = [row[:-1]]
+                    variables = 1
+                else:
+                    attributes = row[0]
+                    variables = len(attributes)
+                    attributes = np.asarray(attributes)
+                if columns is None:
+                    columns = ['Class'] + list(range(0, len(attributes[0])))
+                for attribute in attributes:
+                    attribute = label + list(attribute)
+                    if new_df is None:
+                        new_df = pd.DataFrame(np.reshape(attribute, (1, len(attribute))), columns=columns)
+                    else:
+                        # data = np.reshape(attribute, (1, len(attribute)))
+                        data = pd.Series(attribute, index=columns, name=str(index))
+                        new_df = new_df.append(data)
+            new_df = nan_handler(new_df)
+            return new_df, variables
+    return None,None
+
+
+def nan_handler(df: pd.DataFrame):
+    pd.set_option("display.max_rows", None, "display.max_columns", None)
+    df = df.reset_index(drop =True)
+    for index_r, row in df.iterrows():  # for each row
+        prev = 0
+        next = 0
+        for index_c, item in row.iteritems():  # for each NaN
+            if math.isnan(item):
+                for index_a, real in row[index_c:].iteritems():  # find the next not NaN
+                    if not math.isnan(real):
+                        next = real
+                        break
+                average = (next + prev) / 2
+                prev = average
+                df.iloc[int(index_r), index_c+1] = average
+            else:
+                prev = item
+    return df
 
 def earliness(predictions: Sequence[Tuple[int, int]], ts_length: int) -> Optional[float]:
     """
@@ -27,15 +93,18 @@ def earliness(predictions: Sequence[Tuple[int, int]], ts_length: int) -> Optiona
     if ts_length == 0 or not predictions:
         return None
 
-    return sum([(t + 1) / (ts_length + 1) for t, _ in predictions]) / len(predictions)
-def DataSetCreation_EDSC(dimension, rowtraining, rowtesting, classes,numbers):
+    return sum([(t) / (ts_length + 1) for t, _ in predictions]) / len(predictions)
+
+
+def DataSetCreation_EDSC(dimension, rowtraining, rowtesting, classes, numbers):
     """Code created in order to run the ECTS and EDSC static code. It created the DatasetInformation.h dynamically"""
-    f = open("C_files/edsc/DataSetInformation.h","w+")
+    f = open("C_files/edsc/DataSetInformation.h", "w+")
     f.write("#include <string>\n\n")
     f.write("const int DIMENSION = {};\n".format(dimension))
     f.write("const int ROWTRAINING = {};\n".format(rowtraining))
     f.write("const int ROWTESTING = {};\n".format(rowtesting))
-    f.write("""const char* trainingFileName="C_files/edsc/Data/train";\nconst char* testingFileName="C_files/edsc/Data/test";\nconst char* resultFileName="C_files/edsc/Data/result.txt";\nconst char* path ="C_files/edsc";\n""")
+    f.write(
+        """const char* trainingFileName="C_files/edsc/Data/train";\nconst char* testingFileName="C_files/edsc/Data/test";\nconst char* resultFileName="C_files/edsc/Data/result.txt";\nconst char* path ="C_files/edsc";\n""")
     f.write("const int  NofClasses = {};\n".format(len(classes)))
     f.write("const int Classes[] = {")
     f.write(str(int(classes[0])))
@@ -43,27 +112,27 @@ def DataSetCreation_EDSC(dimension, rowtraining, rowtesting, classes,numbers):
         f.write(",{}".format(int(i)))
     f.write("};\n")
     f.write("const int ClassIndexes[] = {")
-    sum=0
+    sum = 0
     f.write("{}".format(sum))
-    for index,values in list(numbers.items())[:-1]:
+    for index, values in list(numbers.items())[:-1]:
         sum += int(values)
         f.write(",{}".format(sum))
     f.write("};\n")
     f.write("const int ClassNumber[] = {")
     f.write("{}".format(list(numbers.items())[0][1]))
-    for index,value in list(numbers.items())[1:]:
+    for index, value in list(numbers.items())[1:]:
         f.write(",{}".format(int(value)))
     f.write("};\n")
     f.close()
 
 
-def topy(train, train_labels, test, test_labels,timesteps):
+def topy(train, train_labels, test, timesteps):
     """
     Preprocessign data for the MLSTM
     """
     training = []
     variables = len(train)
-    classes=train_labels.value_counts()
+    classes = train_labels.value_counts()
     classes = classes.count()
     for index in range(train[0].shape[0]):
         feature_list = []
@@ -77,10 +146,9 @@ def topy(train, train_labels, test, test_labels,timesteps):
             feature_list.append(feature.iloc[index].tolist())
         testing.append(feature_list)
     train_labels = train_labels.tolist()
-    test_labels = test_labels.tolist()
     path = "./ets/algorithms/MLSTM/data/current_dataset"
     try:
-        os.mkdir(path,0o755 )
+        os.mkdir(path, 0o755)
     except OSError:
         print("Creation of the directory %s failed" % path)
     else:
@@ -88,14 +156,15 @@ def topy(train, train_labels, test, test_labels,timesteps):
     np.save('./ets/algorithms/MLSTM/data/current_dataset/X_test.npy', testing)
     np.save('./ets/algorithms/MLSTM/data/current_dataset/y_train.npy', train_labels)
     np.save('./ets/algorithms/MLSTM/data/current_dataset/X_train.npy', training)
-    np.save('./ets/algorithms/MLSTM/data/current_dataset/y_test.npy', test_labels)
     f2 = open("./ets/algorithms/MLSTM/utils/constants.txt", "w")
     f2.write("TRAIN_FILES=./ets/algorithms/MLSTM/data/current_dataset/\n")
     f2.write("TEST_FILES=./ets/algorithms/MLSTM/data/current_dataset/\n")
-    f2.write("MAX_NB_VARIABLES="+str(variables)+"\n")
-    f2.write("MAX_TIMESTEPS_LIST="+str(timesteps)+"\n")
-    f2.write("NB_CLASSES_LIST="+str(classes)+"\n")
+    f2.write("MAX_NB_VARIABLES=" + str(variables) + "\n")
+    f2.write("MAX_TIMESTEPS_LIST=" + str(timesteps) + "\n")
+    f2.write("NB_CLASSES_LIST=" + str(classes) + "\n")
     f2.close()
+
+
 def temp_accuracy(predictions: Sequence[int], ground_truth_labels: Sequence[int]) -> Optional[float]:
     """
         Computes the accuracy.
@@ -274,4 +343,3 @@ def df_dimensionality_reduction(df: pd.DataFrame, dimensions: int) -> pd.DataFra
         reduced_data = reduced_data.append(pd.Series(aggregated_series), ignore_index=True)
 
     return reduced_data
-

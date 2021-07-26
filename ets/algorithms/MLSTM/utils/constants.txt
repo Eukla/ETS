@@ -1,5 +1,5 @@
 TRAIN_FILES=./ets/algorithms/MLSTM/data/current_dataset/
 TEST_FILES=./ets/algorithms/MLSTM/data/current_dataset/
-MAX_NB_VARIABLES=3
-MAX_TIMESTEPS_LIST=49
+MAX_NB_VARIABLES=5
+MAX_TIMESTEPS_LIST=30
 NB_CLASSES_LIST=2

@@ -64,7 +64,7 @@ class EDSC_C(EarlyClassifier):
                 found=False
             if found:
                 res = item.split(" ")
-                if(int(res[1]) == -4):
+                if int(res[1]) == -4:
                     occurrences = self.labels.value_counts()
                     predictions.append((self.time_stamps[-1], occurrences.idxmax()))
                 else:

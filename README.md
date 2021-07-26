@@ -1,13 +1,12 @@
 # ETSC: Early Time Series Classification
 
-`ETSC` is a Python Early Classification of Time-Series library for public use, from the work **"An Empirical Evaluation of Early Time-Series Classification
-Algorithms"**, **Authors: Evgenios Kladis, Charilaos Akasiadis, Evangelos Michelioudakis, Elias Alevizos, Alexandros Artikis**.
+`ETSC` is a Python Early Classification of Time-Series library for public use, from the work **"Evaluation of Early Time-Series Classification
+Algorithms"**, **Authors: Evgenios Kladis, Charilaos Akasiadis, Evangelos Michelioudakis, Elias Alevizos, Alexander Artikis**.
 
 Aim of this work is to study and collect algorithms that conduct early time-series classification, in a user-friendly format, for researchers to use for their work.
 
-Currently five algorithms are included in this directory. A python cli, simplifies the execution of each algorithm
+Currently six algorithms are included in this directory. A python cli, simplifies the execution of each algorithm
 The predictions are evalueated through metrics such as earliness, accuracy, f1-score(if wanted) and computation time for both training and testing.
-Gui_run or terminal_run are demos, which run the desired algorithm for all the UCR datasets.
 
 ## Acknowledgments
 
@@ -57,7 +56,7 @@ pip install --editable .
 ## Downloading the data
 
 For downloading the data run the script `download_data.sh` found in the script folder. The downloaded data can be found inside folder `data`.
-Over 100 datasets are available, derived from the [UCR library](https://www.cs.ucr.edu/%7Eeamonn/time_series_data_2018/). Multivariate datasets from the Biological and Maritime field are also provided.
+10 datasets are available, derived from the [UCR_UEA library](https://www.timeseriesclassification.com/). Multivariate datasets from the Biological and Maritime field are also provided.
 
 ## Experimental Setup
 
@@ -67,10 +66,10 @@ Note that only ECTS was implemented by us, using the paper of the algorithm as a
 |---|---|
 | ECTS [\[paper\]](https://link.springer.com/article/10.1007/s10115-011-0400-x) | support = 0 |
 | EDSC [\[paper\]](https://epubs.siam.org/doi/10.1137/1.9781611972818.22) [\[code\]](https://drive.google.com/file/d/0BxY8OirJ0-gdbnBYNnRNbW9xeTQ/view) | CHE k=3, min_length=5, max_length=len(time_series)/2 |
-| TEASER [\[paper\]](https://link.springer.com/article/10.1007/s10618-020-00690-z) [\[code\]](https://github.com/patrickzib/SFA) | S=20 (for the UCR), S=10 (for the biological and maritime) |
+| TEASER [\[paper\]](https://link.springer.com/article/10.1007/s10618-020-00690-z) [\[code\]](https://github.com/patrickzib/SFA) | S=20 (for the UCR_UEA), S=10 (for the biological and maritime) |
 | ECEC [\[paper\]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8765556) [\[code\]](https://github.com/junweilvhfut/ECEC)| training_times=20, length = len(time_series)/20,a=0.8 |
-| MLSTM [\[paper\]](https://www.sciencedirect.com/science/article/abs/pii/S0893608019301200?via%3Dihub) [\[code\]](https://github.com/titu1994/MLSTM-FCN) | LSTM cells = 8, tested_lengths = [0.4,0.5,0.6] %  |
-
+| MLSTM [\[paper\]](https://www.sciencedirect.com/science/article/abs/pii/S0893608019301200?via%3Dihub) [\[code\]](https://github.com/titu1994/MLSTM-FCN) | LSTM cells = [8, 64, 128], tested_lengths = [0.4,0.5,0.6] %  |
+| ECONOMY-K [\[paper\]](https://link.springer.com/chapter/10.1007/978-3-319-23528-8_27) [\[code\]](https://tslearn.readthedocs.io/en/stable/user_guide/early.html) | k = [1, 2, 3], λ = 100, cost = 0.001  |
 ## Menu Guide
 
 After running the <em> Virtual Enviroment </em> commands stated above, by running `ets` a menu with all programming options appears.
@@ -104,24 +103,6 @@ If you want to see the algorithm's menu run:
 
 `-c <number>`: The class for which the F1-score will be calculated. If -1 is passed then the F1-score of all classes is calculated (not supported for multivariate time-series yet).
 
-
-### Test Run
-
-`ects` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t ects -u 0.0`
-
-`edsc` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t --cplus edsccplus`
-
-`ecec` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t --java ecec`
-
-`teaser` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t --java teaser -s 20`
-
-`mlstm` : `ets -t data/UCRArchive_2018/GunPoint/GunPoint_TRAIN.tsv -e data/UCRArchive_2018/GunPoint/GunPoint_TEST.tsv -d 0 -c -1 -s \\t -g normal mlstm`
-
-There are also two demo programs for the UCR Dataset run with:
-
-`python gui_run.py`, where algorithms are selected through a GUI.
-
-`python terminal run_py -a <algorithm>`, where the algorithms are given as command line arguements.
 
 ### Disclaimer
 

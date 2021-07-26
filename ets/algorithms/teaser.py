@@ -18,22 +18,26 @@ class TEASER(EarlyClassifier):
     def train(self, train_data: pd.DataFrame, labels: Sequence[int]) -> None:
         pass
 
-    def __init__(self, timestamps, S: int):
+    def __init__(self, timestamps, S: int, normalize: bool):
         """
         Creates the Teaser object
 
         :param timestamps: The list of timestamps for classification
         :param S: The total number of slave-master classifier pairs
-        :param bins: Number of bins for WEASEL
+        :param normalize: The version of TEASER
         """
         self.timestamps = timestamps
         self.S = S
-
+        self.normalize = normalize
         self.dataset: Optional[pd.DataFrame] = None
         self.labels: Sequence[int]
 
     def predict(self, test_data):
-        bin_output = subprocess.check_output(["java", "-jar", "Java/sfa.main.jar", str(self.S), "./train", "./test"])
+        if self.normalize:
+            bin_output = subprocess.check_output(["java", "-jar", "Java/sfa.main.jar", str(self.S), "./train", "./test"])
+        else:
+            bin_output = subprocess.check_output(
+                ["java", "-jar", "Java/sfa.main_non_norm.jar", str(self.S), "./train", "./test"])
         output = bin_output.decode("utf-8")
         train = 0
         truncated_output = output.split("\n")

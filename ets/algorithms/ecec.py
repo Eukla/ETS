@@ -1,15 +1,9 @@
 import logging
 import subprocess
+from typing import List, Tuple, Sequence
 
 import coloredlogs
 import pandas as pd
-import numpy as np
-import ets.algorithms.utils as utils
-from typing import List, Tuple, Dict, Sequence, Optional
-from pyts.transformation import WEASEL
-from sklearn.pipeline import Pipeline, make_pipeline
-from sklearn.model_selection import KFold
-from sklearn.linear_model import LogisticRegression
 
 # Configure the logger (change level to DEBUG for more information)
 logger = logging.getLogger(__name__)
@@ -61,4 +55,4 @@ class ECEC():
                 continue
             final = item.split(" ")
             predictions.append([float(final[1]), float(final[0])])
-        return predictions,train,test
+        return predictions, train, test

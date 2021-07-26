@@ -27,29 +27,32 @@ from ets.algorithms.MLSTM.utils.generic_utils import load_dataset_at, calculate_
 def multi_label_log_loss(y_pred, y_true):
     return K.sum(K.binary_crossentropy(y_pred, y_true), axis=-1)
 
+
 def loss_model(model: Model, dataset_id, dataset_prefix, batch_size=128, train_data_subset=None,
                cutoff=None, normalize_timeseries=False):
-    X_train, y_train, _, _, is_timeseries = load_dataset_at(dataset_id,
-                                                            normalize_timeseries=normalize_timeseries)
+    X_train, y_train, _, is_timeseries = load_dataset_at(dataset_id,
+                                                         normalize_timeseries=normalize_timeseries)
 
     y_train = to_categorical(y_train, len(np.unique(y_train)))
 
     optm = Adam(lr=1e-3)
     model.compile(optimizer=optm, loss='categorical_crossentropy', metrics=['accuracy'])
 
-    model.load_weights("./ets/algorithms/MLSTM/weights/%s_weights.h5" % dataset_prefix)
-    #print("Weights loaded from ", "./weights/%s_weights.h5" % dataset_prefix)
+    model.load_weights("%s_weights.h5" % dataset_prefix)
+    # print("Weights loaded from ", "./weights/%s_weights.h5" % dataset_prefix)
 
     if train_data_subset is not None:
         X_train = X_train[:train_data_subset]
         y_train = y_train[:train_data_subset]
 
-    #print("\nEvaluating : ")
+    # print("\nEvaluating : ")
     loss, accuracy = model.evaluate(X_train, y_train, batch_size=batch_size)
-    #print()
-    #print("Final Loss : ", loss)
+    # print()
+    # print("Final Loss : ", loss)
 
     return loss
+
+
 def _average_gradient_norm(model, X_train, y_train, batch_size):
     # just checking if the model was already compiled
     if not hasattr(model, "train_function"):
@@ -135,9 +138,9 @@ def train_model(model: Model, dataset_id, dataset_prefix, dataset_fold_id=None, 
             line = line.split("=")
             MAX_NB_VARIABLES = int(line[1])
     f.close()
-    X_train, y_train, X_test, y_test, is_timeseries = load_dataset_at(dataset_id,
-                                                                      fold_index=dataset_fold_id,
-                                                                      normalize_timeseries=normalize_timeseries)
+    X_train, y_train, X_test, is_timeseries = load_dataset_at(dataset_id,
+                                                              fold_index=dataset_fold_id,
+                                                              normalize_timeseries=normalize_timeseries)
     max_timesteps, max_nb_variables = calculate_dataset_metrics(X_train)
 
     if max_nb_variables != MAX_NB_VARIABLES:
@@ -159,20 +162,18 @@ def train_model(model: Model, dataset_id, dataset_prefix, dataset_fold_id=None, 
                                  np.bincount(y_ind).astype(np.float64))
     class_weight = recip_freq[le.transform(classes)]
 
-    #print("Class weights : ", class_weight)
+    # print("Class weights : ", class_weight)
 
     y_train = to_categorical(y_train, len(np.unique(y_train)))
-    y_test = to_categorical(y_test, len(np.unique(y_test)))
-
     if is_timeseries:
         factor = 1. / np.cbrt(2)
     else:
         factor = 1. / np.sqrt(2)
 
     if dataset_fold_id is None:
-        weight_fn = "./ets/algorithms/MLSTM/weights/%s_weights.h5" % dataset_prefix
+        weight_fn = "%s_weights.h5" % dataset_prefix
     else:
-        weight_fn = "./ets/algorithms/MLSTM/weights/%s_fold_%d_weights.h5" % (dataset_prefix, dataset_fold_id)
+        weight_fn = "%s_fold_%d_weights.h5" % (dataset_prefix, dataset_fold_id)
 
     model_checkpoint = ModelCheckpoint(weight_fn, verbose=1, mode=optimization_mode,
                                        monitor=monitor, save_best_only=True, save_weights_only=True)
@@ -185,12 +186,8 @@ def train_model(model: Model, dataset_id, dataset_prefix, dataset_fold_id=None, 
     if compile_model:
         model.compile(optimizer=optm, loss='categorical_crossentropy', metrics=['accuracy'])
 
-    if val_subset is not None:
-        X_test = X_test[:val_subset]
-        y_test = y_test[:val_subset]
-    #print(X_test[0][0])
     model.fit(X_train, y_train, batch_size=batch_size, epochs=epochs, callbacks=callback_list,
-              class_weight=class_weight, verbose=0, validation_data=(X_test, y_test))
+              class_weight=class_weight, verbose=0)
 
 
 def evaluate_model(model: Model, dataset_id, dataset_prefix, dataset_fold_id=None, batch_size=128,
@@ -204,7 +201,7 @@ def evaluate_model(model: Model, dataset_id, dataset_prefix, dataset_fold_id=Non
             line = line.split("=")
             MAX_NB_VARIABLES = int(line[1])
     f.close()
-    _, _, X_test, y_test, is_timeseries = load_dataset_at(dataset_id,
+    _, _, X_test, is_timeseries = load_dataset_at(dataset_id,
                                                           fold_index=dataset_fold_id,
                                                           normalize_timeseries=normalize_timeseries)
     max_timesteps, max_nb_variables = calculate_dataset_metrics(X_test)
@@ -223,25 +220,21 @@ def evaluate_model(model: Model, dataset_id, dataset_prefix, dataset_fold_id=Non
 
     if not is_timeseries:
         X_test = pad_sequences(X_test, maxlen=MAX_NB_VARIABLES[dataset_id], padding='post', truncating='post')
-    y_test = to_categorical(y_test, len(np.unique(y_test)))
     optm = Adam(lr=1e-3)
     model.compile(optimizer=optm, loss='categorical_crossentropy', metrics=['accuracy'])
 
     if dataset_fold_id is None:
-        weight_fn = "./ets/algorithms/MLSTM/weights/%s_weights.h5" % dataset_prefix
+        weight_fn = "%s_weights.h5" % dataset_prefix
     else:
         weight_fn = "./ets/algorithms/MLSTM/weights/%s_fold_%d_weights.h5" % (dataset_prefix, dataset_fold_id)
     model.load_weights(weight_fn)
 
     if test_data_subset is not None:
         X_test = X_test[:test_data_subset]
-        y_test = y_test[:test_data_subset]
 
-    #print("\nEvaluating : ")
     pre = model.predict(X_test, batch_size=batch_size)
-    classes =pre.argmax(axis=-1)
-    #print()
-    #print("Final Accuracy : ")
+    classes = pre.argmax(axis=-1)
+
     result = []
     for item in classes:
         result.append((len(X_test[0][0]), item))
@@ -272,7 +265,7 @@ def compute_average_gradient_norm(model: Model, dataset_id, dataset_fold_id=None
             line = line.split("=")
             MAX_NB_VARIABLES = int(line[1])
     f.close()
-    X_train, y_train, X_test, y_test, is_timeseries = load_dataset_at(dataset_id,
+    X_train, y_train, X_test, is_timeseries = load_dataset_at(dataset_id,
                                                                       fold_index=dataset_fold_id,
                                                                       normalize_timeseries=normalize_timeseries)
     max_timesteps, sequence_length = calculate_dataset_metrics(X_train)
@@ -295,7 +288,7 @@ def compute_average_gradient_norm(model: Model, dataset_id, dataset_fold_id=None
     model.compile(optimizer=optm, loss='categorical_crossentropy', metrics=['accuracy'])
 
     average_gradient = _average_gradient_norm(model, X_train, y_train, batch_size)
-    #print("Average gradient norm : ", average_gradient)
+    # print("Average gradient norm : ", average_gradient)
 
 
 class MaskablePermute(Permute):

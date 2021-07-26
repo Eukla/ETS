@@ -13,8 +13,6 @@ import multiprocessing as mp
 logger = logging.getLogger(__name__)
 coloredlogs.install(level=logging.INFO, logger=logger,
                     fmt='%(asctime)s - %(hostname)s - %(name)s[%(process)d] - [%(levelname)s]: %(message)s')
-
-# TODO the algorithm has veery different earliness
 x = 0
 class ECTS(EarlyClassifier):
 
@@ -123,6 +121,7 @@ class ECTS(EarlyClassifier):
         :return: two dicts holding the NN and RNN"""
         nn = {}
         rnn = {}
+        pd.set_option("display.max_rows", None, "display.max_columns", None)
         neigh = NearestNeighbors(n_neighbors=2, metric='euclidean').fit(self.data.iloc[:, 0:prefix + 1])
         def something(row):
             return neigh.kneighbors([row])
