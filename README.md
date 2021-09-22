@@ -103,6 +103,25 @@ If you want to see the algorithm's menu run:
 
 `-c <number>`: The class for which the F1-score will be calculated. If -1 is passed then the F1-score of all classes is calculated (not supported for multivariate time-series yet).
 
+`--make-cv`: Takes the training and testing file, merges them and conducts cross validation.
+
+`--folds` : Used when there are premade folds available.
+
+``
+
+### Test Run
+
+`ects` : `ets -t "training file name" -e "testing file name" --make-cv -d 0 -c -1 ects -u 0.0`
+
+`edsc` : `ets -t "training file name" -e "testing file name" --make-cv -d 0 -c -1 --cplus edsccplus`
+
+`ecec` : `ets -t "training file name" -e "testing file name" --make-cv -d 0 -c -1 --java ecec`
+
+`teaser` : `ets t "training file name" -e "testing file name" --make-cv -d 0 -c -1 --java teaser -s 20`
+
+`mlstm` : `ets t "training file name" -e "testing file name" --make-cv -d 0 -c -1 -g normal mlstm`
+
+`eco-k` : `ets t "training file name" -e "testing file name" --make-cv -d 0 -c -1 economy-k`
 
 ### Disclaimer
 
