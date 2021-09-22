@@ -107,8 +107,6 @@ If you want to see the algorithm's menu run:
 
 `--folds` : Used when there are premade folds available.
 
-``
-
 ### Test Run
 
 `ects` : `ets -t "training file name" -e "testing file name" --make-cv -d 0 -c -1 ects -u 0.0`
