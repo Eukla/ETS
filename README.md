@@ -109,17 +109,17 @@ If you want to see the algorithm's menu run:
 
 ### Test Run for UCR_UEA
 
-`ects` : `ets -t "training file name" -e "testing file name" --make-cv -h Class -c -1 ects -u 0.0`
+`ects` : `ets -t "training file name" -e "testing file name" --make-cv -h Class -c -1 -g vote ects -u 0.0`
 
-`edsc` : `ets -t "training file name" -e "testing file name" --make-cv -h Class -c -1 --cplus edsccplus`
+`edsc` : `ets -t "training file name" -e "testing file name" --make-cv -h Class -c -1 --cplus -g vote edsccplus`
 
-`ecec` : `ets -t "training file name" -e "testing file name" --make-cv -h Class -c -1 --java ecec`
+`ecec` : `ets -t "training file name" -e "testing file name" --make-cv -h Class -c -1 --java -g vote ecec`
 
-`teaser` : `ets t "training file name" -e "testing file name" --make-cv -h Class -c -1 --java teaser -s 20`
+`teaser` : `ets t "training file name" -e "testing file name" --make-cv -h Class -c -1 --java -g vote teaser -s 20`
 
 `mlstm` : `ets t "training file name" -e "testing file name" --make-cv -h Class -c -1 -g normal mlstm`
 
-`eco-k` : `ets t "training file name" -e "testing file name" --make-cv -h Class -c -1 economy-k`
+`eco-k` : `ets t "training file name" -e "testing file name" --make-cv -h Class -c -1 -g vote economy-k`
 
 
 ### Test Run for Maritime and Biological
