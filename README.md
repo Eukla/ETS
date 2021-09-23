@@ -107,19 +107,34 @@ If you want to see the algorithm's menu run:
 
 `--folds` : Used when there are premade folds available.
 
-### Test Run
+### Test Run for UCR_UEA
 
-`ects` : `ets -t "training file name" -e "testing file name" --make-cv -d 0 -c -1 ects -u 0.0`
+`ects` : `ets -t "training file name" -e "testing file name" --make-cv -h Class -c -1 ects -u 0.0`
 
-`edsc` : `ets -t "training file name" -e "testing file name" --make-cv -d 0 -c -1 --cplus edsccplus`
+`edsc` : `ets -t "training file name" -e "testing file name" --make-cv -h Class -c -1 --cplus edsccplus`
 
-`ecec` : `ets -t "training file name" -e "testing file name" --make-cv -d 0 -c -1 --java ecec`
+`ecec` : `ets -t "training file name" -e "testing file name" --make-cv -h Class -c -1 --java ecec`
 
-`teaser` : `ets t "training file name" -e "testing file name" --make-cv -d 0 -c -1 --java teaser -s 20`
+`teaser` : `ets t "training file name" -e "testing file name" --make-cv -h Class -c -1 --java teaser -s 20`
 
-`mlstm` : `ets t "training file name" -e "testing file name" --make-cv -d 0 -c -1 -g normal mlstm`
+`mlstm` : `ets t "training file name" -e "testing file name" --make-cv -h Class -c -1 -g normal mlstm`
 
-`eco-k` : `ets t "training file name" -e "testing file name" --make-cv -d 0 -c -1 economy-k`
+`eco-k` : `ets t "training file name" -e "testing file name" --make-cv -h Class -c -1 economy-k`
+
+
+### Test Run for Maritime and Biological
+
+`ects` : `ets -i "file location" -g vote -v (3 for Biological or 5 Maritime) -d 0 -c -1 ects -u 0.0`
+
+`edsc` : `ets -i "file location" -g vote -v (3 for Biological or 5 Maritime) -d 0 -c -1 --cplus edsccplus`
+
+`ecec` : `ets -i "file location" -g vote -v (3 for Biological or 5 Maritime) -d 0 -c -1 --java ecec`
+
+`teaser` : `ets -i "file location" -g vote -v (3 for Biological or 5 Maritime) -d 0 -c -1 --java teaser -s 10`
+
+`mlstm` : `ets -i "file location" -v (3 for Biological or 5 Maritime) -d 0 -c -1 -g normal mlstm`
+
+`eco-k` : `ets -i "file location"" -g vote -v (3 for Biological or 5 Maritime) -d 0 -c -1 economy-k`
 
 ### Disclaimer
 
