@@ -1,3 +1,7 @@
+# Newest version
+
+The work in this repo is further developed and mantained in the repo [https://github.com/xarakas/ETSC](https://github.com/xarakas/ETSC).  
+
 # ETSC: Early Time Series Classification
 
 `ETSC` is a Python Early Classification of Time-Series library for public use, from the work **"Evaluation of Early Time-Series Classification
