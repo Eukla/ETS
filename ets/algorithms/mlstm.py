@@ -65,7 +65,7 @@ class MLSTM():
                     best_cell = result[3]
                     res[i] = (h_max, best_earl, best_cell)
                 train_time += result[1]
-                train_time += result[2]
+                test_time += result[2]
         """We need to pick the best earliness and cells for the final prediction"""
         counts = {}
         best_folds = {}

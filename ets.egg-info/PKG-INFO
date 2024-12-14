@@ -1,6 +1,14 @@
-# Newest version
-
-The work in this repo is further developed and mantained in the repo [https://github.com/xarakas/ETSC](https://github.com/xarakas/ETSC).  
+Metadata-Version: 2.1
+Name: ets
+Version: 0.1
+Summary: A library of early time-series classification algorithms.
+Author: Evgenios Kladis, Evangelos Michelioudakis
+License: GPL3
+Classifier: Programming Language :: Python :: 3
+Classifier: GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
 
 # ETSC: Early Time Series Classification
 
@@ -195,5 +203,3 @@ If you want to see the algorithm's menu run:
 
 Any false product and misuse of the used algorithms is on the authors of the original papers. Please, inform us if you detect any misconduct or misuse of the code/datasets used in this repository.
 
-#   E T S C _ f o r _ s t r u t _ x c m  
- # ETSC_for_strut_xcm

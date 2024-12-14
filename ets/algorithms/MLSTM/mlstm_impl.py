@@ -137,10 +137,11 @@ def run(earliness, finalcell=None):
     model = generate_model(len(X_test[0][0]), finalcell)
     weights_dir = base_weights_dir % ("alstm", finalcell, earliness)
     dataset_name_ = weights_dir + "current"
-    train = time.time() - start
     train_model(model, DATASET_INDEX, dataset_name_, epochs=600, batch_size=128,
                 normalize_timeseries=normalize_dataset)
+    train = time.time() - start
+    start_test = time.time()
     res = evaluate_model(model, DATASET_INDEX, dataset_prefix=dataset_name_, batch_size=128,
                          normalize_timeseries=normalize_dataset)
-    test = time.time() - start - train
+    test = time.time() - start_test
     return res, train, test, finalcell

@@ -25,7 +25,9 @@ def arff_parser(file_name):
             continue
         if file in file_name:
             # read the data
-            raw_data = loadarff(file_name)
+            unicode_file = open(file_name, 'r', encoding='utf-8')
+            raw_data = loadarff(unicode_file)
+            unicode_file.close()
             df = pd.DataFrame(raw_data[0])
             # encode the labels
             labels = df.iloc[:, -1]

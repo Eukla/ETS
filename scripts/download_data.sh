@@ -3,7 +3,7 @@
 DATA_FOLDER="../data"
 BIO_REPO="https://owncloud.skel.iit.demokritos.gr/index.php/s/5o0E7MZdaabFpjX/download"
 UCR_REPO="https://owncloud.skel.iit.demokritos.gr/index.php/s/IVWeJ0UsdPbjhhU/download"
-MAR_REPO="https://owncloud.skel.iit.demokritos.gr/index.php/s/Yp6QWTA9LZGEOGY/download"
+MAR_REPO="https://owncloud.skel.iit.demokritos.gr/index.php/s/OZe1QikxECcXNJi/download"
 
 if [[ ! -d "${DATA_FOLDER}" ]]; then
 
@@ -34,8 +34,8 @@ if [[ ! -d "${DATA_FOLDER}" ]]; then
     wget --progress=bar:force --content-disposition -P ${DATA_FOLDER} ${MAR_REPO}
 
     # Unzip the data
-    unzip "${DATA_FOLDER}/Maritime_data.zip" -d ${DATA_FOLDER}
+    #unzip "${DATA_FOLDER}/Maritime_data.zip" -d ${DATA_FOLDER}
 
     # Remove the archive
-    rm "${DATA_FOLDER}/Maritime_data.zip"
+    #rm "${DATA_FOLDER}/Maritime_data.zip"
 fi
